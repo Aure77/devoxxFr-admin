@@ -1,14 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.soat.devoxxfr.game.web</groupId>
     <artifactId>devoxxFr-admin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    
+
     <packaging>war</packaging>
     <description>Hosted webapp with Spring MVC for devoxxFr</description>
-    
-   <repositories>
+
+    <developers>
+        <developer>
+            <email>aurelien.viale@soat.fr</email>
+            <id>aurelien</id>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <repositories>
         <repository>
             <id>JBoss Repo</id>
             <url>https://repository.jboss.org/nexus/content/groups/public</url>
@@ -45,21 +55,90 @@
     <properties>
         <devoxxfr.version>1.0.1-SNAPSHOT</devoxxfr.version>
 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.6</java.version>
+
+        <slf4j.version>1.6.4</slf4j.version>
+        <logback.version>1.0.0</logback.version>
+        <commons-lang.version>2.6</commons-lang.version>
+
         <spring.version>3.1.0.RELEASE</spring.version>
         <tiles.version>2.2.2</tiles.version>
         <jstl.version>1.2</jstl.version>
         <taglibs.verion>1.1.2</taglibs.verion>
-	<jersey.version>1.11</jersey.version>
-	<servlet-api.version>3.0-alpha-1</servlet-api.version>
+        <jersey.version>1.11</jersey.version>
+        <servlet-api.version>3.0-alpha-1</servlet-api.version>
         <commons-configuration.version>1.7</commons-configuration.version>
-	<commons-codec.version>1.6</commons-codec.version>
+        <commons-codec.version>1.6</commons-codec.version>
+
+        <junit.version>4.10</junit.version>
+        <mockito.version>1.9.0-rc1</mockito.version>
+        <powermock.version>1.4.10</powermock.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>fr.soat.devoxxfr.game</groupId>
+            <artifactId>pojo</artifactId>
+            <version>${devoxxfr.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.soat.devoxxfr.game</groupId>
+            <artifactId>admin-pojo</artifactId>
+            <version>${devoxxfr.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons-lang.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-	    <version>${servlet-api.version}</version>
+            <version>${servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -69,67 +148,56 @@
             <version>${jstl.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>fr.soat.devoxxfr.game</groupId>
-            <artifactId>pojo</artifactId>
-	    <version>${devoxxfr.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>fr.soat.devoxxfr.game</groupId>
-            <artifactId>admin-pojo</artifactId>
-	    <version>${devoxxfr.version}</version>
-        </dependency>
-
         <!-- Jersey Client (Rest) -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
             <version>${jersey.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
             <version>${jersey.version}</version>
             <exclusions>
                 <!--<exclusion>-->
-                    <!--<groupId>org.codehaus.jackson</groupId>-->
-                    <!--<artifactId>jackson-core-asl</artifactId>-->
+                <!--<groupId>org.codehaus.jackson</groupId>-->
+                <!--<artifactId>jackson-core-asl</artifactId>-->
                 <!--</exclusion>-->
                 <!--<exclusion>-->
-                    <!--<groupId>org.codehaus.jackson</groupId>-->
-                    <!--<artifactId>jackson-mapper-asl</artifactId>-->
+                <!--<groupId>org.codehaus.jackson</groupId>-->
+                <!--<artifactId>jackson-mapper-asl</artifactId>-->
                 <!--</exclusion>-->
                 <!--<exclusion>-->
-                    <!--<groupId>org.codehaus.jackson</groupId>-->
-                    <!--<artifactId>jackson-jaxrs</artifactId>-->
+                <!--<groupId>org.codehaus.jackson</groupId>-->
+                <!--<artifactId>jackson-jaxrs</artifactId>-->
                 <!--</exclusion>-->
                 <!--<exclusion>-->
-                    <!--<groupId>org.codehaus.jackson</groupId>-->
-                    <!--<artifactId>jackson-xc</artifactId>-->
+                <!--<groupId>org.codehaus.jackson</groupId>-->
+                <!--<artifactId>jackson-xc</artifactId>-->
                 <!--</exclusion>-->
             </exclusions>
         </dependency>
-        
+
         <!-- Spring Dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
         </dependency>
- 
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
- 
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -148,19 +216,19 @@
             <artifactId>tiles-core</artifactId>
             <version>${tiles.version}</version>
         </dependency>
-    
+
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-api</artifactId>
             <version>${tiles.version}</version>
         </dependency>
-    
+
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-jsp</artifactId>
             <version>${tiles.version}</version>
         </dependency>
-    
+
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-servlet</artifactId>
@@ -170,7 +238,7 @@
         <dependency>
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
-	    <version>${commons-configuration.version}</version>
+            <version>${commons-configuration.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-beanutils</artifactId>
@@ -179,48 +247,48 @@
             </exclusions>
         </dependency>
 
-	<!-- Apache Commons Codec (Digest) -->
-	<dependency>
-		<groupId>commons-codec</groupId>
-		<artifactId>commons-codec</artifactId>
-		<version>${commons-codec.version}</version>
-	</dependency>
+        <!-- Apache Commons Codec (Digest) -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
+        </dependency>
     </dependencies>
-    
+
     <profiles>
         <!--<profile>-->
-            <!--<id>default</id>-->
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
-            <!---->
-            <!--<dependencies>-->
-                <!--<dependency>-->
-                    <!--<groupId>javax.servlet</groupId>-->
-                    <!--<artifactId>servlet-api</artifactId>-->
-                <!--</dependency>-->
+        <!--<id>default</id>-->
+        <!--<activation>-->
+        <!--<activeByDefault>true</activeByDefault>-->
+        <!--</activation>-->
         <!---->
-                <!--<dependency>-->
-                    <!--<groupId>javax.servlet</groupId>-->
-                    <!--<artifactId>jstl</artifactId>-->
-                    <!--<version>${jstl.version}</version>-->
-                <!--</dependency>     -->
-                <!---->
-            <!--</dependencies>-->
+        <!--<dependencies>-->
+        <!--<dependency>-->
+        <!--<groupId>javax.servlet</groupId>-->
+        <!--<artifactId>servlet-api</artifactId>-->
+        <!--</dependency>-->
+        <!---->
+        <!--<dependency>-->
+        <!--<groupId>javax.servlet</groupId>-->
+        <!--<artifactId>jstl</artifactId>-->
+        <!--<version>${jstl.version}</version>-->
+        <!--</dependency>     -->
+        <!---->
+        <!--</dependencies>-->
         <!--</profile>-->
         <!--<profile>-->
-            <!--<id>cloudbees</id>-->
-            <!---->
-            <!--<activation>-->
-                <!--<property>-->
-                     <!--<name>cloudbees</name>-->
-                     <!--<value>tomcat</value>-->
-                <!--</property>-->
-            <!--</activation>-->
+        <!--<id>cloudbees</id>-->
+        <!---->
+        <!--<activation>-->
+        <!--<property>-->
+        <!--<name>cloudbees</name>-->
+        <!--<value>tomcat</value>-->
+        <!--</property>-->
+        <!--</activation>-->
 
-            <!--<properties>             -->
-                <!--<jdbc.target-database>org.eclipse.persistence.platform.database.MySQLPlatform</jdbc.target-database>-->
-            <!--</properties>-->
+        <!--<properties>             -->
+        <!--<jdbc.target-database>org.eclipse.persistence.platform.database.MySQLPlatform</jdbc.target-database>-->
+        <!--</properties>-->
         <!--</profile>        -->
 
         <profile>
