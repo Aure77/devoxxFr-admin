@@ -30,9 +30,10 @@ public interface TilesUtil {
 	public static final String DFR_ADMIN_INDEX_PAGE = "devoxxfr.admin.index";
 	public static final String DFR_ADMIN_SHOWALLUSERS_PAGE = "devoxxfr.admin.showallusers";
 	public static final String DFR_ADMIN_SHOWUSER_PAGE = "devoxxfr.admin.showuser";
+	/* AuthController Pages */
+	public static final String DFR_AUTH_LOGIN_PAGE = "devoxxfr.auth.login";
 	/* Common pages */
 	public static final String DFR_NOT_FOUND_PAGE = "devoxxfr.notfound";
 	/* Errors */
 	public static final String DFR_ERRORS_ERRORMSG_PAGE = "devoxxfr.errors.errormsg";
-		
 }
