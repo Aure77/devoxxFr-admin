@@ -23,17 +23,12 @@
  */
 package fr.soat.devoxx.game.webmvc.controllers;
 
-import javax.ws.rs.core.MediaType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import fr.soat.devoxx.game.pojo.QuestionResponseDto;
-import fr.soat.devoxx.game.webmvc.delegate.HttpRestException;
-import fr.soat.devoxx.game.webmvc.delegate.RequesterDelegate;
 import fr.soat.devoxx.game.webmvc.utils.TilesUtil;
 
 @Controller
@@ -44,14 +39,6 @@ public class IndexController {
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public String index() {
-		RequesterDelegate service = new RequesterDelegate("/admin/question", MediaType.APPLICATION_JSON);
-		try {
-			QuestionResponseDto questions = service.get(QuestionResponseDto.class);
-			System.out.println(questions.toString());
-		} catch (HttpRestException e) {
-			logger.error("Error while loading question", e);
-		}
-
 		return TilesUtil.DFR_INDEX_PAGE;
 	}
 }
