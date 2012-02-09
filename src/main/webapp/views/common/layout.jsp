@@ -31,6 +31,7 @@
 		    });		
 		});
 		</script>
+		<tiles:insertAttribute name="specificHead" ignore="true" />
 	</head>
 	<body>
 		<div>
