@@ -57,7 +57,7 @@ public class OpenIdUserDetailsService implements UserDetailsService, Authenticat
 	        return getUserWS(urlId);
         } catch (HttpRestException e) {
 	        logger.debug("UserId : " + urlId + " doesn't exist", e);
-	        throw new UsernameNotFoundException("UserId : " + urlId + " doesn't exist", e);
+	        throw new UsernameNotFoundException("UserId : " + urlId + " doesn't exist in database", e);
         }
 	}
 
@@ -75,7 +75,7 @@ public class OpenIdUserDetailsService implements UserDetailsService, Authenticat
 		try {
 	        return getUserWS(urlId);
         } catch (HttpRestException e) {
-	        logger.debug("UserId : " + urlId + " doesn't exist", e);
+	        logger.debug("UserId : " + urlId + " doesn't exist in database", e);
         }
 
 		String email = null;
@@ -107,10 +107,9 @@ public class OpenIdUserDetailsService implements UserDetailsService, Authenticat
         user.setName(fullName);
         
         try {
-	        addUserWS(user);
+	        registerUserWS(user);
         } catch (HttpRestException e) {
         	logger.error("UserId : " + urlId + " persist error", e);
-        	user = null;
         }
 
 		return user;
@@ -130,7 +129,7 @@ public class OpenIdUserDetailsService implements UserDetailsService, Authenticat
         return user;  
 	}
 	
-	private void addUserWS(OpenIdUserDetails userOpenid) throws HttpRestException {
+	private void registerUserWS(OpenIdUserDetails userOpenid) throws HttpRestException {
 		//TODO getName size !
 		UserRequestDto userReq = new UserRequestDto(userOpenid.getName(), userOpenid.getEmail());
         RequesterDelegate ws = new RequesterDelegate("/admin/user");
