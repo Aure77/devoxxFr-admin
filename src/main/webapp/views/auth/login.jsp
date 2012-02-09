@@ -12,7 +12,18 @@
     <input type="hidden" name="action" value="verify" />
     <fieldset>
         <legend><spring:message code="login.form.fieldset.legend" text="Sign-in or Create New Account" /></legend>
-        <div id="openid_choice">
+		<c:if test="${not empty param.error}">
+		  <div class="ui-widget">
+			<div style="padding: 0 .7em;" class="ui-state-error ui-corner-all">
+				<p>
+					<span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span>
+					<spring:message code="login.error.message.notsuccessful" text="Your login attempt was not successful, try again.<br/>&nbsp;Reason:" />
+	                <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />.
+				</p>
+			</div>
+		  </div>
+		</c:if>
+		<div id="openid_choice">
             <p><spring:message code="login.form.openid_choice.p" text="Please click your account provider:" /></p>
             <div id="openid_btns"></div>
         </div>
