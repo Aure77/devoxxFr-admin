@@ -32,14 +32,14 @@ import org.springframework.security.core.userdetails.User;
  * Customized {@code UserDetails} implementation.
  * 
  */
-public class CustomUserDetails extends User {
+public class OpenIdUserDetails extends User {
 	
     private static final long serialVersionUID = 7055496430992973297L;
 	private String email;
 	private String name;
 	private boolean newUser;
 
-	public CustomUserDetails(String username, Collection<? extends GrantedAuthority> authorities) {
+	public OpenIdUserDetails(String username, Collection<? extends GrantedAuthority> authorities) {
 		super(username, "notused", authorities);
 	}
 
@@ -65,5 +65,12 @@ public class CustomUserDetails extends User {
 
 	public void setNewUser(boolean newUser) {
     	this.newUser = newUser;
-	}	
+	}
+
+	@Override
+    public String toString() {
+	    return "CustomUserDetails [email=" + email + ", name=" + name + ", newUser=" + newUser + ", toString()=" + super.toString() + "]";
+    }	
+	
+	
 }
