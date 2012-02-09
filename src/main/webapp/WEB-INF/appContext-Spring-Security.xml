@@ -9,13 +9,14 @@
 	<http pattern="/css/**" security="none" />
 	<http pattern="/img/**" security="none" />
 	<http pattern="/js/**"  security="none" />
+	<http pattern="/auth/login*" security="none" />
 	<http auto-config="true">
 		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
 		<!-- <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->
 		
         <openid-login   login-page="/auth/login" 
                         default-target-url="/" 
-                        authentication-failure-url="/auth/login?error">
+                        authentication-failure-url="/auth/login?error=true">
 			<attribute-exchange>
 				<openid-attribute name="email" type="http://axschema.org/contact/email" required="true" count="1"/>
 				<openid-attribute name="firstname" type="http://axschema.org/namePerson/first" />
