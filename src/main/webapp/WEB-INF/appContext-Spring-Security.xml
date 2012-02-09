@@ -13,7 +13,20 @@
 		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
 		<!-- <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->
 		
-        <openid-login />
+        <openid-login   login-page="/auth/login" 
+                        default-target-url="/" 
+                        authentication-failure-url="/auth/login?error">
+			<attribute-exchange>
+				<openid-attribute name="email" type="http://axschema.org/contact/email" required="true" count="1"/>
+				<openid-attribute name="firstname" type="http://axschema.org/namePerson/first" />
+				<openid-attribute name="lastname" type="http://axschema.org/namePerson/last" />
+				<openid-attribute name="fullname" type="http://axschema.org/namePerson" />
+			</attribute-exchange>
+        </openid-login>
+        
+        <logout invalidate-session="true"
+                logout-success-url="/auth/login"
+                logout-url="/auth/logout" />
 	</http>
 
 	<!-- <beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider"> 
@@ -24,12 +37,14 @@
 
 	<!-- <authentication-manager> <authentication-provider user-service-ref="userService" 
 		/> </authentication-manager> -->
+		
+	<beans:bean id="openIdUserService" class="fr.soat.devoxx.game.webmvc.services.OpenIdUserDetailsService" />
 
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
+		<authentication-provider user-service-ref="openIdUserService">
+<!-- 			<user-service>
 				<user name="http://aure77.myopenid.com/" authorities="ROLE_ADMIN" />
-			</user-service>
+			</user-service> -->
 		</authentication-provider>
 	</authentication-manager>
 
