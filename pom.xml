@@ -300,6 +300,24 @@
 				</filters>
 			</build>
 		</profile>
+		
+		<profile>
+            <id>cloudbees-aure77</id>
+            <properties>
+                <environment>cloudbees-aure77</environment>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <filtering>true</filtering>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+                <filters>
+                    <filter>src/main/filters/filter-${environment}.properties</filter>
+                </filters>
+            </build>
+        </profile>
 
 		<profile>
 			<id>cloudbees-soat</id>
